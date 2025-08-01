@@ -1,0 +1,255 @@
+IME_MOTORS_ITAHARI-1#show  running-config  interface  ethernet 1/9
+interface ethernet 1/9
+ description To-rtr-dhbi
+ switchport mode trunk
+ switchport allowed vlan add 840,4005 tagged
+ switchport allowed vlan remove 1
+ spanning-tree spanning-disabled
+ ip access-group TEL-SSH in
+ 
+!
+IME_MOTORS_ITAHARI-1#!
+
+!
+
+!
+!
+ntp client
+ntp server 192.168.20.212
+ntp authentication-key 45 md5 OO58
+!
+prompt IME_MOTORS_ITAHARI
+hostname IME_MOTORS_ITAHARI
+!
+!
+!
+!
+!
+!
+!
+!
+!                                                                    
+snmp-server community dish@123 ro                                    
+!
+snmp-server enable traps mac-notification
+!
+!
+username noc access-level 15
+username noc password 7 0e7517141fb53f21ee439b355b5a1d0a
+username nocedr access-level 0
+username nocedr password 7 a39efd2183eefc9c7274af0b81702784
+username sumans access-level 0
+username sumans password 7 f34b18935d50d1413bd5fc3f8e33269c
+username dipakl access-level 15
+username dipakl password 7 524893c7b7fa5fc1d642cb197d03c622
+enable password 7 0192023a7bbd73250516f069df18b500
+!
+!
+!
+!
+!
+!
+vlan database
+ VLAN 1 name DefaultVlan media ethernet
+ vlan 840,4005 media ethernet
+!                                                                    
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+access-list IP extended TEL-SSH
+ permit TCP 192.168.35.0 255.255.255.0 172.16.100.0 255.255.254.0 destination-po
+rt 22
+ permit TCP 192.168.35.0 255.255.255.0 172.16.100.0 255.255.254.0 destination-po
+rt 23                                                                
+ permit TCP host 192.168.20.132 172.16.100.0 255.255.254.0 destination-port 22
+ permit TCP host 192.168.20.132 172.16.100.0 255.255.254.0 destination-port 23
+ permit TCP 172.16.100.0 255.255.254.0 172.16.100.0 255.255.254.0 destination-po
+rt 22
+ permit TCP 172.16.100.0 255.255.254.0 172.16.100.0 255.255.254.0 destination-po
+rt 23
+ permit TCP host 192.168.20.171 172.16.100.0 255.255.254.0 destination-port 22
+ permit TCP host 192.168.20.171 172.16.100.0 255.255.254.0 destination-port 23
+ deny TCP any 172.16.100.0 255.255.254.0 destination-port 22
+ deny TCP any 172.16.100.0 255.255.254.0 destination-port 23
+ permit any any
+!
+!
+!
+!
+!
+!
+no loopback-detection
+loopback-detection action none
+!
+interface ethernet 1/1
+ switchport allowed vlan add 840 untagged
+ switchport mode access                                              
+ switchport native vlan 840
+ switchport allowed vlan remove 1
+ 
+!
+interface ethernet 1/2
+ switchport allowed vlan add 840 untagged
+ switchport mode access
+ switchport native vlan 840
+ switchport allowed vlan remove 1
+ 
+!
+interface ethernet 1/3
+ switchport allowed vlan add 840 untagged
+ switchport mode access
+ switchport native vlan 840
+ switchport allowed vlan remove 1
+ 
+!
+interface ethernet 1/4
+ switchport allowed vlan add 840 untagged
+ switchport mode access
+ switchport native vlan 840
+ switchport allowed vlan remove 1                                    
+ 
+!
+interface ethernet 1/5
+ switchport allowed vlan add 840 untagged
+ switchport mode access
+ switchport native vlan 840
+ switchport allowed vlan remove 1
+ 
+!
+interface ethernet 1/6
+ 
+!
+interface ethernet 1/7
+ 
+!
+interface ethernet 1/8
+ 
+!
+interface ethernet 1/9
+ description To-rtr-dhbi
+ switchport mode trunk
+ switchport allowed vlan add 840,4005 tagged
+ switchport allowed vlan remove 1                                    
+ spanning-tree spanning-disabled
+ ip access-group TEL-SSH in
+ 
+!
+interface ethernet 1/10
+ description To-rtr-ithr
+ switchport mode trunk
+ switchport allowed vlan add 840,4005 tagged
+ switchport allowed vlan remove 1
+ spanning-tree spanning-disabled
+ ip access-group TEL-SSH in
+ 
+!
+!
+!
+!
+!
+interface vlan 1
+ ip address dhcp
+!
+interface vlan 840
+!
+interface vlan 4005                                                  
+ ip address 172.16.100.100 255.255.255.0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 172.16.100.1
+!
+!
+!
+!
+!                                                                    
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!                                                                    
+!
+!
+!
+!
+!
+!
+interface vlan 1
+!
+interface vlan 840
+!
+interface vlan 4005
+!
+interface vlan 1
+!
+interface vlan 840
+!
+interface vlan 4005
+!
+!
+!
+!
+!
+!                                                                    
+smart-pair 1
+ primary-port ethernet 1/10
+ backup-port ethernet 1/9
+ wtr-delay 5
+!
+!
+line console
+!
+!
+line vty
+!
+!
+!
+end
+!
+IME_MOTORS_ITAHARI-1
